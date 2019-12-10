@@ -14,6 +14,7 @@ library(shiny)
 library(shinydashboard)
 library(shinydashboardPlus)
 library(shinyjs)
+library(shinyalert)
 
 ###
 # UI
@@ -52,6 +53,11 @@ shinyUI(fluidPage(
     dashboardSidebar(collapsed = TRUE,
                      sidebarMenu(
                        menuItem(
+                         "Manufacturer",
+                         tabName = "manufacturer",
+                         icon = icon("briefcase", lib = "font-awesome")
+                       ),
+                       menuItem(
                          "Person",
                          tabName = "person",
                          icon = icon("user-tag", lib = "font-awesome")
@@ -60,32 +66,26 @@ shinyUI(fluidPage(
                          "Organization",
                          tabName = "organization",
                          icon = icon("building", lib = "font-awesome")
-                       ),
-                       menuItem(
-                         "Manufacturer",
-                         tabName = "manufacturer",
-                         icon = icon("briefcase", lib = "font-awesome")
                        )
                      )),
     dashboardBody(
       useShinyjs(),
+      useShinyalert(),
       tags$script(
         HTML(
-          "
-      var openTab = function(tabName){
-        $('a', $('.sidebar')).each(function() {
-          if(this.getAttribute('data-value') == tabName) {
-            this.click()
-          };
-        });
-      }
-    "
+          "var openTab = function(tabName){
+             $('a', $('.sidebar')).each(function() {
+                if(this.getAttribute('data-value') == tabName) {
+                   this.click()
+                };
+             });
+           }"
         )
       ),
       tabItems(
+        source("userInterface/insertTriplesFuseki_manufacturer.R", local = TRUE)$value,
         source("userInterface/insertTriplesFuseki_person.R", local = TRUE)$value,
-        source("userInterface/insertTriplesFuseki_organization.R", local = TRUE)$value,
-        source("userInterface/insertTriplesFuseki_manufacturer.R", local = TRUE)$value
+        source("userInterface/insertTriplesFuseki_organization.R", local = TRUE)$value
       )
     )
   )

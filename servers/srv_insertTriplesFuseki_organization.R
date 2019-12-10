@@ -3,7 +3,7 @@
 endpointUpdate <- "http://fuseki1.get-it.it/directory/update"
 
 # SPARQL package to submit query and save results
-observeEvent(input$sendQ, {
+observeEvent(input$sendQOrganization, {
   SPARQL(url = endpointUpdate, 
          query = queryContentSPARQLOrganization(),
          ns = c(
@@ -12,7 +12,7 @@ observeEvent(input$sendQ, {
            'vcard', '<http://www.w3.org/2006/vcard/ns#>'
          ),
          curl_args=list(
-           'userpwd'=paste('admin',':','sos432015',sep=''),
+           'userpwd'=paste('xxx',':','xxx',sep=''),
            style = "post"
          )
   )
@@ -78,7 +78,26 @@ output$selectedVarOrganization <- renderUI({
 })
 
 observe({
-  toggleState("sendQ",
-              condition = (input$orgName != "" & input$orgAddrl != "" & input$orgCap != "" & input$orgLoc != "" & input$orgCountry != "" & input$orgWebSite != "")
+  toggleState("sendQOrganization",
+              condition = (
+                input$orgName != "" &&
+                input$orgAddrl != "" &&
+                input$orgCap != "" &&
+                input$orgLoc != "" &&
+                input$orgCountry != "" &&
+                input$orgWebSite != ""
+              )
   )
 })
+
+observeEvent(input$sendQOrganization, {
+  # Show a modal when the button sendQPerson is pressed
+  shinyalert::shinyalert(
+    title = "Well done!",
+    type = "info",
+    confirmButtonText = "Ok",
+    timer = 3000
+  )
+})
+
+

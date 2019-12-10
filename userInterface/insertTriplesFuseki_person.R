@@ -69,28 +69,29 @@ tabItem(
         tags$div(
           style = "padding-right: 5px;padding-left: 5px; padding-bottom: 10px;",
           actionButton(
-            "toNewOrg", 
-            HTML("add your organization"),
-            style = "color: #fff; background-color: #337ab7; border-color: #2e6da4",
-            onclick = "openTab('organization')",
-            href="#"
-          )#, these bsTooltip and bsModal doesn't work
-          # shinyBS::bsTooltip("toNewOrg", "If don't find your Organization please <br/>click here and create new element.<br/>", placement = "right", trigger = "hover",
-          #                    options = NULL),
-          # shinyBS::bsModal(id = "rdfOrg", 
-          #                  title = "RDF input box", 
-          #                  trigger = "toNewOrg", 
-          #                  tags$div(
-          #                    tags$iframe(
-          #                      src = "http://processing.get-it.it/shiny/private/insertRDFOrg/",
-          #                      height="500px",
-          #                      width="100%",
-          #                      scrolling = T
-          #                    )
-          #                  ), 
-          #                  size = "large"
-          # )
+              "toNewOrg", 
+              HTML("add your organization"),
+              style = "color: #fff; background-color: #337ab7; border-color: #2e6da4",
+              onclick = "openTab('organization')",
+              href="#"
+          )
         ),
+        # these bsTooltip and bsModal doesn't work
+        # bsTooltip("toNewOrg", "If don't find your Organization please <br/>click here and create new element.<br/>", placement = "right", trigger = "hover",
+        #                    options = NULL),
+        # shinyBS::bsModal(id = "rdfOrg",
+        #                  title = "RDF input box",
+        #                  trigger = "toNewOrg",
+        #                  tags$div(
+        #                    tags$iframe(
+        #                      src = "http://processing.get-it.it/shiny/private/insertRDFOrg/",
+        #                      height="500px",
+        #                      width="100%",
+        #                      scrolling = T
+        #                    )
+        #                  ),
+        #                  size = "large"
+        # ),
         tags$div(
           style = "padding-right: 5px;padding-left: 5px",
           # TODO: più di un progetto???
@@ -111,7 +112,13 @@ tabItem(
         ),
         tags$div(
           style = "padding-right: 5px; padding-left: 5px; padding-bottom: 10px;",
-          actionButton("sendQ", "Add new person")
+          disabled(
+            actionButton(
+              "sendQPerson",
+              "Add new person",
+              style = "color: #fff; background-color: #6D9538; border-color: #435926"
+            ) 
+          )
         )
       )
     ),

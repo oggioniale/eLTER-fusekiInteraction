@@ -3,7 +3,7 @@
 endpointUpdate <- "http://fuseki1.get-it.it/directory/update"
 
 # SPARQL package to submit query and save results
-observeEvent(input$sendQ, {
+observeEvent(input$sendQManufacturer, {
   SPARQL(url = endpointUpdate, 
          query = queryContentSPARQManufacturerL(),
          ns = c(
@@ -13,7 +13,7 @@ observeEvent(input$sendQ, {
            'vcard', '<http://www.w3.org/2006/vcard/ns#>'
          ),
          curl_args=list(
-           'userpwd'=paste('admin',':','sos432015',sep=''),
+           'userpwd'=paste('xxx',':','xxx',sep=''),
            style = "post"
          )
   )
@@ -110,7 +110,29 @@ output$selectedVarManufacturer <- renderUI({
 })
 
 observe({
-  toggleState("sendQ",
-              condition = (input$manName != "" & input$manTel != "" & input$manAdd != "" & input$manNumber != "" & input$manCity != "" & input$manAdm != "" & input$manPostCode != "" & input$manCountry != "" & input$manWebSite != "")
+  toggleState("sendQManufacturer",
+              condition = (
+                input$manName != "" &&
+                input$manTel != "" &&
+                input$manAdd != "" &&
+                input$manNumber != "" &&
+                input$manCity != "" &&
+                input$manAdm != "" &&
+                input$manPostCode != "" &&
+                input$manCountry != "" &&
+                input$manWebSite != ""
+              )
   )
 })
+
+observeEvent(input$sendQManufacturer, {
+  # Show a modal when the button sendQPerson is pressed
+  shinyalert::shinyalert(
+    title = "Well done!",
+    type = "info",
+    confirmButtonText = "Ok",
+    timer = 3000
+  )
+})
+
+

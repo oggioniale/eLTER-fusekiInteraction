@@ -39,7 +39,7 @@ proj <- SPARQL::SPARQL(url = endpointQueryProj,
 endpointUpdate <- "http://fuseki1.get-it.it/directory/update"
 
 # SPARQL package to submit query and save results
-observeEvent(input$sendQ, {
+observeEvent(input$sendQPerson, {
   SPARQL(url = endpointUpdate, 
          update = queryContentSPARQLPerson(),
          ns = c(
@@ -48,7 +48,7 @@ observeEvent(input$sendQ, {
            'vcard', '<http://www.w3.org/2006/vcard/ns#>'
          ),
          curl_args = list(
-           'userpwd' = paste('admin',':','sos432015',sep=''),
+           'userpwd' = paste('xxx',':','xxx',sep=''),
            style = "post"
          )
   )
@@ -103,6 +103,12 @@ queryContentUIPerson <- reactive(
 )
 
 output$selectedVarPerson <- renderUI({
+  # Create a Progress object
+  progress <- shiny::Progress$new()
+  # Make sure it closes when we exit this reactive, even if there's an error
+  on.exit(progress$close())
+  progress$set(message = "Stiamo caricando i valori della tabella", value = 0)
+  
   tags$form(
     tags$textarea(
       id = "code",
@@ -123,7 +129,25 @@ output$selectedVarPerson <- renderUI({
 })
 
 observe({
-  toggleState("sendQ",
-              condition = (input$perFamName != "" & input$perGName != "" & input$perOrg != ""  & input$perOrcid != "" & input$perEMail != "")
+  toggleState("sendQPerson",
+              condition = (
+                input$perFamName != "" &&
+                input$perGName != "" &&
+                input$perOrg != ""  &&
+                input$perOrcid != "" &&
+                input$perEMail != ""
+              )
   )
 })
+
+observeEvent(input$sendQPerson, {
+  # Show a modal when the button sendQPerson is pressed
+  shinyalert::shinyalert(
+    title = "Well done!",
+    type = "info",
+    confirmButtonText = "Ok",
+    timer = 3000
+  )
+})
+
+

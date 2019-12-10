@@ -60,7 +60,13 @@ tabItem(
         ),
         tags$div(
           style = "padding-right: 5px;padding-left: 5px; padding-bottom: 10px;",
-          actionButton("sendQ", "Add new manufacturer")
+          disabled(
+            actionButton(
+              "sendQManufacturer",
+              "Add new manufacturer",
+              style = "color: #fff; background-color: #6D9538; border-color: #435926"
+            )
+          )
         )
       )
     ),
@@ -82,18 +88,33 @@ tabItem(
             ""
           )
         ),
-        tags$head(HTML(
-          "<link rel='stylesheet' href='../css/codemirror.css'>"
-        )),
-        tags$head(HTML(
-          "<script src='../js/codemirror.js'></script>"
-        )),
-        tags$head(HTML(
-          "<script src='../js/matchbrackets.js'></script>"
-        )),
-        tags$head(HTML(
-          "<script src='../js/sparql.js'></script>"
-        )),
+        # tags$head(HTML(
+        #   "<link rel='stylesheet' href='../css/codemirror.css'>"
+        # )),
+        # tags$head(HTML(
+        #   "<script src='../js/codemirror.js'></script>"
+        # )),
+        # tags$head(HTML(
+        #   "<script src='../js/matchbrackets.js'></script>"
+        # )),
+        # tags$head(HTML(
+        #   "<script src='../js/sparql.js'></script>"
+        # )),
+        # tags$head(HTML(
+        #   ".CodeMirror {
+        #    border-top: 1px solid black;
+        #    border-bottom: 1px solid black;
+        #   }"
+        # )),
+        # tags$head(HTML(
+        #   "<link rel='stylesheet' href='css/show-hint.css'>"
+        # )),
+        # tags$head(HTML(
+        #   "<script src='js/jquery.js'></script>"
+        # )),
+        # tags$head(HTML(
+        #   "<script src='js/show-hint.js'></script>"
+        # )),
         tags$div(
           class = "CodeMirror cm-s-default",
           style = "top: 10px;",
