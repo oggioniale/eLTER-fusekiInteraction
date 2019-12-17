@@ -2,7 +2,7 @@ eLTER-fusekiInteraction
 ======================
 
 ## Description
-...
+User interface for inserting RDF triples into a fuseki sparql endpoint.
 
 ## Usage
 ...
